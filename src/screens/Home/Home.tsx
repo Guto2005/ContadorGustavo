@@ -1,31 +1,41 @@
 import React, { useState } from 'react';
-import { SafeAreaView } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import Header from '../../components/Header/Header'; 
-import Contador from '../../components/Contador/Contador';
-import ThemeToggle from '../../components/ThemeToggle/ThemeToggle';
-import Footer from '../../components/Footer/Footer';
-import styles from './HomeStyle';
+import { View, StyleSheet } from 'react-native';
+import Header from './../../components/Header/Header';
+import Footer from './../../components/Footer/Footer';
+import Counter from './../../components/Contador/Contador';
 
-const Home = () => {
+const App = () => {
   const [count, setCount] = useState(0);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
-  const toggleTheme = () => {
-    setIsDarkMode((prev) => !prev);
-  };
+  const toggleDarkMode = () => setDarkMode(!darkMode);
 
   return (
-    <SafeAreaView style={[styles.container, isDarkMode ? styles.dark : styles.light]}>
-      <StatusBar style={isDarkMode ? 'light' : 'dark'} />
-      <Header count={count} />
-      <Contador count={count} setCount={setCount} />
-      <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+    <View style={[styles.container, darkMode ? styles.darkBackground : styles.lightBackground]}>
+      {/* Header */}
+      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+
+      {/* Contador */}
+      <Counter count={count} setCount={setCount} darkMode={darkMode} />
+
+      {/* Footer */}
       <Footer />
-    </SafeAreaView>
+    </View>
   );
 };
 
-export default Home;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  darkBackground: {
+    backgroundColor: '#333',
+  },
+  lightBackground: {
+    backgroundColor: '#f5e0a3',
+  },
+});
 
-
+export default App;

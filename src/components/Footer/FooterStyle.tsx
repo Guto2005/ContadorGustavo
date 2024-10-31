@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   footer: {
     position: 'absolute',
+    alignItems: 'center',
     bottom: 10,
   },
   footerText: {
